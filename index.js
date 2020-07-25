@@ -1,6 +1,7 @@
 window.addEventListener("DOMContentLoaded", init);
 
 function init() {
-    //do something
+    const width = 960;
+    const height = 540;
 }
 
