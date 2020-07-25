@@ -9,19 +9,20 @@ function init() {
         canvas: document.querySelector("#myCanvas")
     });
     
-    renderer.setSize(width, height);
     renderer.setPixelRatio(window.devicePixelRatio);
+    renderer.setSize(width, height);
 
     //シーンの作成（場所の作成）
     const scene = new THREE.Scene();
 
     //カメラの作成
-    const camera = new THREE.PerpectiveCamera(
+    const camera = new THREE.PerspectiveCamera(
         45,
-        width/height,
+        width / height,
         1,
         10000
     );
+    camera.position.set(0, 0, +1000);
 
     //立方体のジオメトリの作成(形？)
     const geometry = new THREE.BoxGeometry(500, 500, 500);
@@ -39,10 +40,21 @@ function init() {
     //ライトの作成
     const light = new THREE.DirectionalLight(0xffffff);
     light.intensity = 2;    // 光の強さが二倍
-    scene.add(light);
     //ライトの位置変更
     light.position.set(1, 1, 1);
+    scene.add(light);
 
-    //ついに描画
-    renderer.render(scene, camera);
+    tick();
+
+    function tick() {
+        requestAnimationFrame(tick);
+
+	//箱の回転
+	box.rotation.x += 0.01;
+	box.rotation.y += 0.01;
+
+	//レンダリング
+	renderer.render(scene, camera);
+    }
 }
+
